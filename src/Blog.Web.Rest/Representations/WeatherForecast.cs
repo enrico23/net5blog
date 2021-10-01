@@ -1,6 +1,6 @@
 using System;
 
-namespace Blog.Web.Rest
+namespace Blog.Web.Rest.Representations
 {
     public class WeatherForecast
     {

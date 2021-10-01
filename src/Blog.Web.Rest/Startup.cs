@@ -23,10 +23,10 @@ namespace Blog.Web.Rest
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.Configure<PositionOptions>(Configuration.GetSection(PositionOptions.Position));
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -34,7 +34,6 @@ namespace Blog.Web.Rest
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

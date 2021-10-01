@@ -1,9 +1,12 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Blog.Web.Rest.Representations;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Web.Rest.Controllers
 {
@@ -18,17 +21,24 @@ namespace Blog.Web.Rest.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly PositionOptions _options;
+
+        public WeatherForecastController(
+            ILogger<WeatherForecastController> logger,
+            IOptions<PositionOptions> options)
         {
             _logger = logger;
+            _options = options.Value;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<LocalizedWeatherForecast> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new LocalizedWeatherForecast
             {
+                Title = _options.Title,
+                Name = _options.Name,
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
