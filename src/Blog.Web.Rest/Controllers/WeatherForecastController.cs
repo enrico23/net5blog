@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Blog.Web.Rest.Representations;
 using Microsoft.Extensions.Options;
+using Blog.Utility.Options;
 
 namespace Blog.Web.Rest.Controllers
 {
@@ -23,12 +24,16 @@ namespace Blog.Web.Rest.Controllers
 
         private readonly PositionOptions _options;
 
+        private readonly DatabaseOptions _databaseOptions;
+
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
-            IOptions<PositionOptions> options)
+            IOptions<PositionOptions> options,
+             IOptions<DatabaseOptions> databaseOptions)
         {
             _logger = logger;
             _options = options.Value;
+            _databaseOptions = databaseOptions.Value;
         }
 
         [HttpGet]
