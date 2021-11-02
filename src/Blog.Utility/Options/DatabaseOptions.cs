@@ -4,7 +4,7 @@ namespace Blog.Utility.Options
 {
     public class DatabaseOptions
     {
-         public const string Database = "Configuration:DATABASE";
+         public const string Database = "Configuration:Database";
          
         [Required]
         public string BlogDb{ get; set; }
